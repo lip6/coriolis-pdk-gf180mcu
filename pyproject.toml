@@ -1,0 +1,20 @@
+
+[build-system]
+build-backend = "mesonpy"
+requires = ["meson-python"]
+
+[project]
+name = "coriolis-pdk-gf180mcu"
+version = "2025.05.07"
+authors = [ { name="Global Foundries" }
+          ]
+description = "PDK for GF180MCU node (180nm)"
+readme = "README.rst"
+license = { text="Apache-2.0" }
+keywords = [ "vlsi", "pdk" ]
+classifiers = [ "Development Status :: 3 - Alpha" 
+              , "Programming Language :: Python :: 3.8"
+              ]
+
+[project.urls]
+Homepage = "https://github.com/google/gf180mcu-pdk"
