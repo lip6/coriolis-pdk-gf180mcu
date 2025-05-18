@@ -30,7 +30,7 @@ def _routing ( useHV ):
         dirM1           = RoutingLayerGauge.Vertical
         dirM2           = RoutingLayerGauge.Horizontal
         netBuilderStyle = 'HV,3RL+'
-        routingStyle    = StyleFlags.HV|StyleFlags.M1Offgrid
+        routingStyle    = StyleFlags.HV|StyleFlags.M1Offgrid|StyleFlags.VSmallAsOffgrid
     else:
         dirM1           = RoutingLayerGauge.Horizontal
         dirM2           = RoutingLayerGauge.Vertical
@@ -39,7 +39,7 @@ def _routing ( useHV ):
     rg.addLayerGauge(
         RoutingLayerGauge.create( tech.getLayer( 'Metal1' )         # metal
                                 , dirM1                             # preferred routing direction
-                                , RoutingLayerGauge.LocalOnly       # layer usage
+                                , RoutingLayerGauge.PinOnly         # layer usage
                                 , 0                                 # depth
                                 , 0.0                               # density (deprecated)
                                 , u(0.0)                            # track offset from AB
@@ -54,7 +54,7 @@ def _routing ( useHV ):
                                 , RoutingLayerGauge.Default         # layer usage
                                 , 1                                 # depth
                                 , 0.0                               # density (deprecated)
-                                , u(0.0)                            # track offset from AB
+                                , u(0.28)                           # track offset from AB
                                 , u(0.56)                           # track pitch
                                 , u(0.28)                           # wire width
                                 , u(0.28)                           # perpandicular wire width
@@ -158,6 +158,7 @@ def _routing ( useHV ):
         )
         cfg.anabatic.routingGauge = 'mcu9t5v0'
         cfg.anabatic.cellGauge = 'LEF.GF018hv5v_green_sc9'
+        cfg.anabatic.gcellAspectRatio = 1.5 
         cfg.anabatic.globalLengthThreshold = 30*u(5.04)
         cfg.anabatic.saturateRatio = 0.90
         cfg.anabatic.saturateRp = 10
