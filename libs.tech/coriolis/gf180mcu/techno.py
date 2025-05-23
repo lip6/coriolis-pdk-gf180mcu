@@ -33,7 +33,7 @@ class VIAS ( object ):
     #
     #            Name     | BMetal  | Cut   | TMetal    | Side| BHE | BVH | THE | TVE  |
     #            0        | 1       | 2     | 3         | 4   | 5   | 6   | 7   | 8    |
-    ViaDatas = ( ( 'VIA12', 'Metal1', 'Via1', 'Metal2'  , 0.22, 0.06, 0.00, 0.06, 0.01 )
+    ViaDatas = ( ( 'VIA12', 'Metal1', 'Via1', 'Metal2'  , 0.26, 0.00, 0.06, 0.06, 0.01 )
                , ( 'VIA23', 'Metal2', 'Via2', 'Metal3'  , 0.26, 0.06, 0.01, 0.01, 0.06 )
                , ( 'VIA34', 'Metal3', 'Via3', 'Metal4'  , 0.26, 0.01, 0.06, 0.06, 0.01 )
                , ( 'VIA45', 'Metal4', 'Via4', 'Metal5'  , 0.26, 0.06, 0.01, 0.01, 0.06 )
