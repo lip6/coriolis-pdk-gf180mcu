@@ -127,8 +127,8 @@ def _routing ( useHV ):
         cfg.viewer.minimumSize = 500
         cfg.viewer.pixelThreshold = 2
         cfg.lefImport.minTerminalWidth = 0.0
-        cfg.crlcore.groundName  = 'vss'
-        cfg.crlcore.powerName   = 'vdd'
+        cfg.crlcore.groundName  = 'VSS'
+        cfg.crlcore.powerName   = 'VDD'
         cfg.etesian.bloat       = 'disabled'
         cfg.etesian.aspectRatio = 1.00
         cfg.etesian.aspectRatio = [10, 1000]
@@ -136,11 +136,13 @@ def _routing ( useHV ):
         cfg.etesian.densityVariation = 0.05
         cfg.etesian.routingDriven = False
         cfg.etesian.latchUpDistance = u(30.0 - 1.0)
-       #cfg.etesian.diodeName = 'diode'
+        cfg.etesian.diodeName = 'gf180mcu_fd_sc_mcu9t5v0__antenna'
        #cfg.etesian.antennaInsertThreshold = 0.50
        #cfg.etesian.antennaMaxWL = u(250.0)
+        cfg.etesian.spares.buffer = 'gf180mcu_fd_sc_mcu9t5v0__clkbuf_2'
+        cfg.etesian.tieName = 'gf180mcu_fd_sc_mcu9t5v0__filltie'
         cfg.etesian.feedNames = 'gf180mcu_fd_sc_mcu9t5v0__fill_1,gf180mcu_fd_sc_mcu9t5v0__fill_2,gf180mcu_fd_sc_mcu9t5v0__fill_4,gf180mcu_fd_sc_mcu9t5v0__fill_8'
-        cfg.etesian.defaultFeed = 'fill_2'
+        cfg.etesian.defaultFeed = 'gf180mcu_fd_sc_mcu9t5v0__fill_1'
         cfg.etesian.cell.zero = 'gf180mcu_fd_sc_mcu9t5v0__tieh'
         cfg.etesian.cell.one = 'gf180mcu_fd_sc_mcu9t5v0__tiel'
         cfg.etesian.effort = 2
@@ -160,6 +162,8 @@ def _routing ( useHV ):
         cfg.anabatic.cellGauge = 'LEF.GF018hv5v_green_sc9'
         cfg.anabatic.gcellAspectRatio = 1.5 
         cfg.anabatic.globalLengthThreshold = 30*u(5.04)
+        cfg.anabatic.hsmallThreshold = 3
+        cfg.anabatic.vsmallThreshold = 3
         cfg.anabatic.saturateRatio = 0.90
         cfg.anabatic.saturateRp = 10
         cfg.anabatic.topRoutingLayer = 'Metal5'
