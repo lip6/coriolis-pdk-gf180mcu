@@ -218,127 +218,32 @@ def _loadStdLib ( pdkTop ):
     """
     cellsTop = pdkTop / 'libraries' / 'gf180mcu_fd_sc_mcu9t5v0' / 'latest' / 'cells'
 
-    useGds  = False
-    af      = AllianceFramework.get()
-    db      = DataBase.getDB()
-    tech    = db.getTechnology()
-    rootlib = db.getRootLibrary()
-    cellLib = Library.create(rootlib, 'mcu9t5v')
+    loadGds    = False
+    af         = AllianceFramework.get()
+    db         = DataBase.getDB()
+    tech       = db.getTechnology()
+    rootlib    = db.getRootLibrary()
+    cellLib    = Library.create(rootlib, 'mcu9t5v')
+    cellLibGds = Library.create( cellLib, 'GDS' )
+
+    io.vprint( 1, '  o  Setup GF 180 mcu9t5v library in {} [LEF].'.format( cellLib.getName() ))
+    io.vprint( 2, '     (__file__="{}")'.format( os.path.abspath( __file__ )))
+    LefImport.load( (cellsTop / '..' / 'tech' / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
+    LefImport.setMergeLibrary( cellLib )
+    LefImport.setGdsForeignLibrary( cellLibGds )
+    LefImport.setPinFilter( u(0.26), u(0.26), LefImport.PinFilter_WIDEST )
+    for cellDir in cellsTop.iterdir():
+        for lefFile in sorted(cellDir.glob('*.lef')):
+            if loadGds:
+                gdsFile = lefFile.with_suffix( '.gds' )
+                if gdsFile.is_file():
+                    Gds.setTopCellName( gdsFile.stem )
+                    Gds.load( cellLibGds, gdsFile.as_posix(), Gds.Layer_0_IsBoundary|Gds.NoBlockages|Gds.LefForeign )
+            LefImport.load( lefFile.as_posix() )
     af.wrapLibrary( cellLib, 0 )
-
-    gaugeName    = Cfg.getParamString('anabatic.routingGauge').asString()
-    routingGauge = af.getRoutingGauge( gaugeName )
-    metal1       = DataBase.getDB().getTechnology().getLayer( 'Metal1' )
-    metal2       = DataBase.getDB().getTechnology().getLayer( 'Metal2' )
-    blockage1    = metal1.getBlockageLayer()
-    blockage2    = metal2.getBlockageLayer()
-    hpitch       = 0
-    for layerGauge in routingGauge.getLayerGauges():
-        if layerGauge.getType() == RoutingLayerGauge.PinOnly:
-            continue
-        if layerGauge.getDirection() == RoutingLayerGauge.Horizontal:
-            hpitch = layerGauge.getPitch()
-            break
-
-    if useGds:
-        io.vprint( 1, '  o  Setup GF 180 mcu9t5v library in {} [GDS].'.format( cellLib.getName() ))
-        io.vprint( 2, '     (__file__="{}")'.format( os.path.abspath( __file__ )))
-        for cellDir in cellsTop.iterdir():
-            for gdsFile in sorted(cellDir.glob('*.gds')):
-                Gds.load( cellLib
-                        , gdsFile.as_posix()
-                        , Gds.NoGdsPrefix|Gds.Layer_0_IsBoundary )
-       #io.vprint( 1, '  o  Skrinking V-AB of {}'.format(DbU.getValueString( hpitch )))
-        with overlay.UpdateSession():
-            for cell in cellLib.getCells():
-                ab = cell.getAbutmentBox()
-               #ab.inflate( 0, -hpitch )
-                cell.setAbutmentBox( ab )
-                cell.setTerminalNetlist( True )
-                for net in cell.getNets():
-                    if not net.isExternal():
-                        blockages = []
-                        for component in net.getComponents():
-                            if component.getLayer() == metal1 or component.getLayer() == metal1:
-                                blockages.append( component )
-                        if blockages:
-                            io.vprint( 2, '     - Obstacles found in {}'.format( cell ))
-                        for component in blockages:
-                            bb = component.getBoundingBox()
-                            if component.getLayer() == metal1:
-                                v = Vertical.create( net
-                                                   , blockage1
-                                                   , bb.getXCenter()
-                                                   , bb.getWidth()
-                                                   , bb.getYMin()
-                                                   , bb.getYMax() )
-                            if component.getLayer() == metal2:
-                                h = Horizontal.create( net
-                                                     , blockage2
-                                                     , bb.getYCenter()
-                                                     , bb.getHeight()
-                                                     , bb.getXMin()
-                                                     , bb.getXMax() )
-                        continue
-                    if net.isPower() or net.getName() == 'VDD':
-                        net.setName( 'VDD' )
-                        net.setType( Net.Type.POWER )
-                        net.setGlobal( True )
-                        net.setDirection( Net.Direction.IN )
-                        continue
-                    if net.isGround() or net.getName() == 'VSS':
-                        net.setName( 'VSS' )
-                        net.setType( Net.Type.GROUND )
-                        net.setGlobal( True )
-                        net.setDirection( Net.Direction.IN )
-                        continue
-                    if    net.getName() == 'Z'  \
-                       or net.getName() == 'ZN' \
-                       or net.getName() == 'Q':
-                        net.setDirection( Net.Direction.OUT )
-                    else:
-                        net.setDirection( Net.Direction.IN )
-                    toDestroy = []
-                    for component in NetExternalComponents.get(net):
-                        if isinstance(component,Pad):
-                            bb  = component.getBoundingBox()
-                            pad = Vertical.create( net
-                                                 , component.getLayer()
-                                                 , bb.getCenter().getX()
-                                                 , bb.getWidth()
-                                                 , bb.getYMin()
-                                                 , bb.getYMax() )
-                            NetExternalComponents.setExternal( pad )
-                            toDestroy.append( component )
-                    for component in toDestroy:
-                        component.destroy()
-    else:
-        io.vprint( 1, '  o  Setup GF 180 mcu9t5v library in {} [LEF].'.format( cellLib.getName() ))
-        io.vprint( 2, '     (__file__="{}")'.format( os.path.abspath( __file__ )))
-        LefImport.load( (cellsTop / '..' / 'tech' / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
-        LefImport.setMergeLibrary( cellLib )
-        #LefImport.setPinFilter( u(0.84), u(0.26), LefImport.PinFilter_WIDEST )
-        LefImport.setPinFilter( u(0.26), u(0.26), LefImport.PinFilter_WIDEST )
-        for cellDir in cellsTop.iterdir():
-            for lefFile in sorted(cellDir.glob('*.lef')):
-                LefImport.load( lefFile.as_posix() )
-    af.wrapLibrary( cellLib, 1 )
     return cellLib
-
-
-def _loadIoLib ():
-    """
-    Load the IO library from the GDS files.
-    """
-    af    = AllianceFramework.get()
-    ioLib = af.getLibrary( 1 )
-    io.vprint( 1, '  o  Loading GDS library in "{}".'.format( ioLib.getName() ))
-    Gds.load( ioLib
-            , ndaTopDir + '/XXXX.gds'
-            , Gds.NoGdsPrefix )
 
 
 def setup ( pdkTop, useHV ):
     _routing( useHV )
     _loadStdLib( pdkTop )
-    #_loadIoLib()

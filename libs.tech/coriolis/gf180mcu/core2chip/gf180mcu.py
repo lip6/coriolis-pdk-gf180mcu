@@ -20,13 +20,13 @@ Core2Chip configuration for the Global Foudries 180nm I/O pad library (GF180MCU)
 
 import sys
 import re
-from   ...Hurricane       import DbU, DataBase, UpdateSession, Breakpoint, \
-                                 Transformation , Instance , Net
-from   ...CRL             import Catalog, AllianceFramework
-from   ...helpers         import trace
-from   ...helpers.io      import ErrorMessage, WarningMessage
-from   ...helpers.overlay import CfgCache
-from   .core2chip         import CoreToChip as BaseCoreToChip, IoNet, IoPad
+from   coriolis.Hurricane       import DbU, DataBase, UpdateSession, Breakpoint, \
+                                       Transformation , Instance , Net
+from   coriolis.CRL             import Catalog, AllianceFramework
+from   coriolis.helpers         import trace
+from   coriolis.helpers.io      import ErrorMessage, WarningMessage
+from   coriolis.helpers.overlay import CfgCache
+from   coriolis.plugins.core2chip.core2chip import CoreToChip as BaseCoreToChip, IoNet, IoPad
 
 
 class CoreToChip ( BaseCoreToChip ):

@@ -106,13 +106,14 @@ def _setup_techno( useHV ):
     Metal5_Dummy   = createBL( tech, 'Metal5_Dummy'  , BasicLayer.Material.metal, gds2Layer=81, gds2DataType=4 )
     MetalTop_Dummy = createBL( tech, 'MetalTop_Dummy', BasicLayer.Material.metal, gds2Layer=53, gds2DataType=4 )
 
-    Poly2_Label    = createBL( tech, 'Poly2_Label'   , BasicLayer.Material.info, gds2Layer=30, gds2DataType=10 )
-    Metal1_Label   = createBL( tech, 'Metal1_Label'  , BasicLayer.Material.info, gds2Layer=34, gds2DataType=10 )
-    Metal2_Label   = createBL( tech, 'Metal2_Label'  , BasicLayer.Material.info, gds2Layer=36, gds2DataType=10 )
-    Metal3_Label   = createBL( tech, 'Metal3_Label'  , BasicLayer.Material.info, gds2Layer=42, gds2DataType=10 )
-    Metal4_Label   = createBL( tech, 'Metal4_Label'  , BasicLayer.Material.info, gds2Layer=46, gds2DataType=10 )
-    Metal5_Label   = createBL( tech, 'Metal5_Label'  , BasicLayer.Material.info, gds2Layer=81, gds2DataType=10 )
-    MetalTop_Label = createBL( tech, 'MetalTop_Label', BasicLayer.Material.info, gds2Layer=53, gds2DataType=10 )
+    Poly2_Label    = createBL( tech, 'Poly2_Label'   , BasicLayer.Material.info,  gds2Layer=30, gds2DataType=10 )
+    Metal1_Label   = createBL( tech, 'Metal1_Label'  , BasicLayer.Material.info,  gds2Layer=34, gds2DataType=10 )
+    Metal2_Label   = createBL( tech, 'Metal2_Label'  , BasicLayer.Material.info,  gds2Layer=36, gds2DataType=10 )
+    Metal3_Label   = createBL( tech, 'Metal3_Label'  , BasicLayer.Material.info,  gds2Layer=42, gds2DataType=10 )
+    Metal4_Label   = createBL( tech, 'Metal4_Label'  , BasicLayer.Material.info,  gds2Layer=46, gds2DataType=10 )
+    Metal5_Label   = createBL( tech, 'Metal5_Label'  , BasicLayer.Material.info,  gds2Layer=81, gds2DataType=10 )
+    MetalTop_Label = createBL( tech, 'MetalTop_Label', BasicLayer.Material.info,  gds2Layer=53, gds2DataType=10 )
+    TEXT           = createBL( tech, 'TEXT'          , BasicLayer.Material.other, gds2Layer=63, gds2DataType=63 )
 
     Metal1_BLK   = createBL( tech, 'Metal1_BLK'  , BasicLayer.Material.blockage, gds2Layer=34, gds2DataType=5 )
     Metal2_BLK   = createBL( tech, 'Metal2_BLK'  , BasicLayer.Material.blockage, gds2Layer=36, gds2DataType=5 )
@@ -199,11 +200,11 @@ def _setup_display():
     
     # Group: Routing Layer.
     style.addDrawingStyle( group='Routing Layer', name='Metal1'  , color=toRGB('Blue'     ), pattern=toHexa('poids2.8'         ), threshold=0.80*scale )
-    style.addDrawingStyle( group='Routing Layer', name='Metal2'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Routing Layer', name='Metal3'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Routing Layer', name='Metal4'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Routing Layer', name='Metal5'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , threshold=0.02*scale )
-    style.addDrawingStyle( group='Routing Layer', name='MetalTop', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), threshold=0.02*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal2'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal3'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal4'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal5'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , threshold=0.80*scale )
+    style.addDrawingStyle( group='Routing Layer', name='MetalTop', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale )
     
     # Group: Cuts (VIA holes).
     style.addDrawingStyle( group='Cuts (VIA holes)', name='Contact', color=toRGB('0,150,150'), threshold=1.50*scale )
@@ -216,11 +217,11 @@ def _setup_display():
     # Group: Fillers.
     style.addDrawingStyle( group='Fillers', name='Poly2_Dummy'   , color=toRGB('Red'      ), pattern='55AA55AA55AA55AA'         , border=0, threshold=1.50*scale )
     style.addDrawingStyle( group='Fillers', name='Metal1_Dummy'  , color=toRGB('Blue'     ), pattern=toHexa('poids2.8'         ), border=0, threshold=0.80*scale )
-    style.addDrawingStyle( group='Fillers', name='Metal2_Dummy'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), border=0, threshold=0.02*scale )
-    style.addDrawingStyle( group='Fillers', name='Metal3_Dummy'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), border=0, threshold=0.02*scale )
-    style.addDrawingStyle( group='Fillers', name='Metal4_Dummy'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), border=0, threshold=0.02*scale )
-    style.addDrawingStyle( group='Fillers', name='Metal5_Dummy'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , border=0, threshold=0.02*scale )
-    style.addDrawingStyle( group='Fillers', name='MetalTop_Dummy', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), border=0, threshold=0.02*scale )
+    style.addDrawingStyle( group='Fillers', name='Metal2_Dummy'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), border=0, threshold=0.80*scale )
+    style.addDrawingStyle( group='Fillers', name='Metal3_Dummy'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), border=0, threshold=0.80*scale )
+    style.addDrawingStyle( group='Fillers', name='Metal4_Dummy'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), border=0, threshold=0.80*scale )
+    style.addDrawingStyle( group='Fillers', name='Metal5_Dummy'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , border=0, threshold=0.80*scale )
+    style.addDrawingStyle( group='Fillers', name='MetalTop_Dummy', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), border=0, threshold=0.80*scale )
       
     # Group: Blockages.
     style.addDrawingStyle( group='Blockages', name='Metal1_BLK'  , color=toRGB('Blue'     ), pattern='006070381c0e0703'         , threshold=0.80*scale, border=2 )
@@ -231,13 +232,14 @@ def _setup_display():
     style.addDrawingStyle( group='Blockages', name='MetalTop_BLK', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale, border=2 )
 
     # Group: Text.
+    style.addDrawingStyle( group='Text', name='TEXT'          , color=toRGB('White'    ), border=1, threshold=400.0 )
     style.addDrawingStyle( group='Text', name='Poly2_Label'   , color=toRGB('Red'      ), pattern='55AA55AA55AA55AA'   , threshold=1.50*scale )
     style.addDrawingStyle( group='Text', name='Metal1_Label'  , color=toRGB('Blue'     ), pattern=toHexa('poids2.8'         ), threshold=0.80*scale )
-    style.addDrawingStyle( group='Text', name='Metal2_Label'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Text', name='Metal3_Label'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Text', name='Metal4_Label'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), threshold=0.02*scale )
-    style.addDrawingStyle( group='Text', name='Metal5_Label'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , threshold=0.02*scale )
-    style.addDrawingStyle( group='Text', name='MetalTop_Label', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), threshold=0.02*scale )
+    style.addDrawingStyle( group='Text', name='Metal2_Label'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Text', name='Metal3_Label'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Text', name='Metal4_Label'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Text', name='Metal5_Label'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , threshold=0.80*scale )
+    style.addDrawingStyle( group='Text', name='MetalTop_Label', color=toRGB('Violet'   ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale )
 
     # Knick & Kite.
     style.addDrawingStyle( group='Knik & Kite', name='SPL1'           , color=toRGB('Red'        ) )
@@ -245,7 +247,7 @@ def _setup_display():
     style.addDrawingStyle( group='Knik & Kite', name='gmetalh'        , color=toRGB('128,255,200'), pattern=toHexa('antislash2.32'    ), border=1 )
     style.addDrawingStyle( group='Knik & Kite', name='gmetalv'        , color=toRGB('200,200,255'), pattern=toHexa('light_antihash1.8'), border=1 )
     style.addDrawingStyle( group='Knik & Kite', name='gcontact'       , color=toRGB('255,255,190'),                                      border=1 )
-    style.addDrawingStyle( group='Knik & Kite', name='Anabatic::Edge' , color=toRGB('255,255,190'), pattern='0000000000000000'         , border=4, threshold=0.02 )
+    style.addDrawingStyle( group='Knik & Kite', name='Anabatic::Edge' , color=toRGB('255,255,190'), pattern='0000000000000000'         , border=4, threshold=0.80 )
     style.addDrawingStyle( group='Knik & Kite', name='Anabatic::GCell', color=toRGB('255,255,190'), pattern='0000000000000000'         , border=2, threshold=threshold )
 
     Viewer.Graphics.addStyle( style )

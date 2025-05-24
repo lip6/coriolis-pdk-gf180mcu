@@ -24,6 +24,7 @@ def setup ( checkToolkit=None, useHV=False ):
     from coriolis.designflow.tasyagle import TasYagle
     from .techno                      import setup as techno_setup 
     from .mcu9t5v0                    import setup as StdCellLib_setup
+    from .iolib                       import setup as iolib_setup
 
     pdkGFTop = Path( __file__ ).parent
 
@@ -31,6 +32,7 @@ def setup ( checkToolkit=None, useHV=False ):
 
     techno_setup( useHV )
     StdCellLib_setup( pdkGFTop, useHV )
+    iolib_setup( pdkGFTop )
     
     with overlay.CfgCache(priority=Cfg.Parameter.Priority.UserFile) as cfg:
         cfg.misc.catchCore           = False
