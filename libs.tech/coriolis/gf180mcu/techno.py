@@ -199,8 +199,8 @@ def _setup_display():
     style.addDrawingStyle( group='Active Layer', name='Poly2'   , color=toRGB('Red'        ), pattern='55AA55AA55AA55AA'   , threshold=1.50*scale )
     
     # Group: Routing Layer.
-    style.addDrawingStyle( group='Routing Layer', name='Metal1'  , color=toRGB('Blue'     ), pattern=toHexa('poids2.8'         ), threshold=0.80*scale )
-    style.addDrawingStyle( group='Routing Layer', name='Metal2'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.80*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal1'  , color=toRGB('Blue'     ), pattern=toHexa('poids2.8'         ), threshold=0.00*scale )
+    style.addDrawingStyle( group='Routing Layer', name='Metal2'  , color=toRGB('Aqua'     ), pattern=toHexa('light_antihash0.8'), threshold=0.00*scale )
     style.addDrawingStyle( group='Routing Layer', name='Metal3'  , color=toRGB('LightPink'), pattern=toHexa('light_antihash1.8'), threshold=0.80*scale )
     style.addDrawingStyle( group='Routing Layer', name='Metal4'  , color=toRGB('Green'    ), pattern=toHexa('light_antihash2.8'), threshold=0.80*scale )
     style.addDrawingStyle( group='Routing Layer', name='Metal5'  , color=toRGB('Yellow'   ), pattern='1144114411441144'         , threshold=0.80*scale )

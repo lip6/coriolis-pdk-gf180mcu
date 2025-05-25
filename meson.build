@@ -24,6 +24,11 @@ core2chip_files = [ 'libs.tech/coriolis/gf180mcu/core2chip/__init__.py'
                   , 'libs.tech/coriolis/gf180mcu/core2chip/gf180mcu.py'
                   ]
 
-py.install_sources( files(     cells_files), subdir:'pdks/gf180mcu' )
-py.install_sources( files( core2chip_files), subdir:'pdks/gf180mcu/core2chip' )
+designflow_files = [ 'libs.tech/coriolis/gf180mcu/designflow/__init__.py'
+                   , 'libs.tech/coriolis/gf180mcu/designflow/drc.py'
+                   ]
+
+py.install_sources( files(      cells_files), subdir:'pdks/gf180mcu' )
+py.install_sources( files(  core2chip_files), subdir:'pdks/gf180mcu/core2chip' )
+py.install_sources( files( designflow_files), subdir:'pdks/gf180mcu/designflow' )
 

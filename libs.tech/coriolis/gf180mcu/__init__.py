@@ -59,3 +59,7 @@ def setup ( checkToolkit=None, useHV=False ):
 
     Yosys.setLiberty( liberty )
     ShellEnv.CHECK_TOOLKIT = Where.checkToolkit.as_posix()
+
+    klayoutTech = pdkGFTop   / 'libraries' / 'gf180mcu_fd_pr' / 'latest' / 'tech'
+    lypFile     = klayoutTech / 'klayout' / 'gf180mcu.lyp'
+    Klayout.setLypFile( lypFile )
