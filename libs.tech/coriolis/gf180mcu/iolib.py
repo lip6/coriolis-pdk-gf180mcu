@@ -48,11 +48,11 @@ def _loadIoLib ( pdkDir ):
     ioLibGds = Library.create( ioLib  , 'GDS'     )
     LefImport.setMergeLibrary( ioLib )
     LefImport.setGdsForeignLibrary( ioLibGds )
-    LefImport.load( (pdkDir / 'libraries'
-                            / 'gf180mcu_fd_sc_mcu9t5v0'
-                            / 'latest'
-                            / 'tech'
-                            / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
+    #LefImport.load( (pdkDir / 'libraries'
+    #                        / 'gf180mcu_fd_sc_mcu9t5v0'
+    #                        / 'latest'
+    #                        / 'tech'
+    #                        / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
     io.vprint( 1, '  o  Setup GF180MCU I/O library in {}.'.format( ioLib.getName() ))
     cellsDir = pdkDir / 'libraries' / 'gf180mcu_fd_io' / 'latest' / 'cells'
     for lefFile in cellsDir.glob( '*/*_5lm.lef' ):
