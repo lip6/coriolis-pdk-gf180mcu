@@ -114,6 +114,7 @@ def _setup_techno( useHV ):
     Metal5_Label   = createBL( tech, 'Metal5_Label'  , BasicLayer.Material.info,  gds2Layer=81, gds2DataType=10 )
     MetalTop_Label = createBL( tech, 'MetalTop_Label', BasicLayer.Material.info,  gds2Layer=53, gds2DataType=10 )
     TEXT           = createBL( tech, 'TEXT'          , BasicLayer.Material.other, gds2Layer=63, gds2DataType=63 )
+    TEXT2          = createBL( tech, 'TEXT2'         , BasicLayer.Material.other, gds2Layer=58, gds2DataType=0  )
 
     Metal1_BLK   = createBL( tech, 'Metal1_BLK'  , BasicLayer.Material.blockage, gds2Layer=34, gds2DataType=5 )
     Metal2_BLK   = createBL( tech, 'Metal2_BLK'  , BasicLayer.Material.blockage, gds2Layer=36, gds2DataType=5 )
@@ -121,6 +122,12 @@ def _setup_techno( useHV ):
     Metal4_BLK   = createBL( tech, 'Metal4_BLK'  , BasicLayer.Material.blockage, gds2Layer=46, gds2DataType=5 )
     Metal5_BLK   = createBL( tech, 'Metal5_BLK'  , BasicLayer.Material.blockage, gds2Layer=81, gds2DataType=5 )
     MetalTop_BLK = createBL( tech, 'MetalTop_BLK', BasicLayer.Material.blockage, gds2Layer=53, gds2DataType=5 )
+
+    Via1_BLK   = createBL( tech, 'Via1_BLK'  , BasicLayer.Material.blockage, gds2Layer=35, gds2DataType=5 )
+    Via2_BLK   = createBL( tech, 'Via2_BLK'  , BasicLayer.Material.blockage, gds2Layer=38, gds2DataType=5 )
+    Via3_BLK   = createBL( tech, 'Via3_BLK'  , BasicLayer.Material.blockage, gds2Layer=40, gds2DataType=5 )
+    Via4_BLK   = createBL( tech, 'Via4_BLK'  , BasicLayer.Material.blockage, gds2Layer=41, gds2DataType=5 )
+    Via5_BLK   = createBL( tech, 'Via5_BLK'  , BasicLayer.Material.blockage, gds2Layer=82, gds2DataType=5 )
 
     CONT = createVia( tech, 'CONT_POLY2', 'Poly2', 'Contact', 'Metal1', u(0.22) )
     setEnclosures( CONT, Poly2 , u(0.07) )
@@ -150,6 +157,12 @@ def _setup_techno( useHV ):
     Metal4  .setBlockageLayer( Metal4_BLK )
     Metal5  .setBlockageLayer( Metal5_BLK )
     MetalTop.setBlockageLayer( MetalTop_BLK )
+
+    Via1.setBlockageLayer( Via1_BLK )
+    Via2.setBlockageLayer( Via2_BLK )
+    Via3.setBlockageLayer( Via3_BLK )
+    Via4.setBlockageLayer( Via4_BLK )
+    Via5.setBlockageLayer( Via5_BLK )
 
     # Coriolis internal layers
     createBL( tech, 'text.cell'    , BasicLayer.Material.other )
