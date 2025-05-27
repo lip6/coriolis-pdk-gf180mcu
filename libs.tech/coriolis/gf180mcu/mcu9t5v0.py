@@ -223,7 +223,7 @@ def _loadStdLib ( pdkTop ):
     db         = DataBase.getDB()
     tech       = db.getTechnology()
     rootlib    = db.getRootLibrary()
-    cellLib    = Library.create(rootlib, 'mcu9t5v')
+    cellLib    = Library.create( rootlib, 'mcu9t5v' )
     cellLibGds = Library.create( cellLib, 'GDS' )
 
     io.vprint( 1, '  o  Setup GF 180 mcu9t5v library in {} [LEF].'.format( cellLib.getName() ))

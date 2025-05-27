@@ -56,6 +56,7 @@ class DRC ( FlowTask ):
 
         self.targets = [ Path(self.file_depend(0).stem + '_main_drc_gf{}.lyrdb'.format(self.deck)) ]
         self.command.append( '--path={}'.format( self.file_depend(0) ))
+        self.addClean( self.targets )
 
     def __repr__ ( self ):
         return '<{}>'.format( ' '.join(self.command) )
@@ -67,12 +68,14 @@ class DRC ( FlowTask ):
         shellEnv[ 'PDK_ROOT' ] = DRC.PDK_ROOT.as_posix()
         shellEnv[ 'PDK'      ] = DRC.PDK.as_posix()
         shellEnv.export()
-        print( self.command )
         state = subprocess.run( self.command )
         if state.returncode:
             e = ErrorMessage( 1, 'DRC.doTask(): UNIX command failed ({}).' \
                                  .format( state.returncode ))
             return TaskFailed( e )
+        state = subprocess.run( [ 'grep', '--count', 'polygon', self.file_target(0).as_posix() ]  )
+        if not state.returncode:
+            return False
         return self.checkTargets( 'DRC.doTask' )
 
     def asDoitTask ( self ):
