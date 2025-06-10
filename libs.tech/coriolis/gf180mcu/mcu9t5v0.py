@@ -17,6 +17,9 @@ from   coriolis.Anabatic        import StyleFlags
 __all__ = [ "setup" ]
 
 
+loadGds = False
+
+
 def _routing ( useHV ):
     """
     Define the routing gauge along with the various P&R tool parameters.
@@ -57,7 +60,7 @@ def _routing ( useHV ):
                                 , u(0.28)                           # track offset from AB
                                 , u(0.56)                           # track pitch
                                 , u(0.28)                           # wire width
-                                , u(0.28)                           # perpandicular wire width
+                                , u(0.38)                           # perpandicular wire width
                                 , u(0.26)                           # VIA side
                                 , u(0.0 ) ))                        # obstacle dW
     rg.addLayerGauge(
@@ -126,7 +129,7 @@ def _routing ( useHV ):
         # Place & Route setup
         cfg.viewer.minimumSize = 500
         cfg.viewer.pixelThreshold = 2
-        cfg.lefImport.minTerminalWidth = 0.0
+        cfg.lefImport.minTerminalWidth = 0.34
         cfg.crlcore.groundName  = 'VSS'
         cfg.crlcore.powerName   = 'VDD'
         cfg.etesian.bloat       = 'disabled'
@@ -216,9 +219,10 @@ def _loadStdLib ( pdkTop ):
     * Which nets are external, and in which direction (name matching).
     * Blockages: any shape in internals nets in Metal1 or Metal2 layer.
     """
+    global loadGds
+
     cellsTop = pdkTop / 'libraries' / 'gf180mcu_fd_sc_mcu9t5v0' / 'latest' / 'cells'
 
-    loadGds    = False
     af         = AllianceFramework.get()
     db         = DataBase.getDB()
     tech       = db.getTechnology()
@@ -231,7 +235,7 @@ def _loadStdLib ( pdkTop ):
     LefImport.load( (cellsTop / '..' / 'tech' / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
     LefImport.setMergeLibrary( cellLib )
     LefImport.setGdsForeignLibrary( cellLibGds )
-    LefImport.setPinFilter( u(0.26), u(0.26), LefImport.PinFilter_WIDEST )
+    LefImport.setPinFilter( u(0.26), u(0.26), LefImport.PinFilter_TALLEST )
     for cellDir in cellsTop.iterdir():
         for lefFile in sorted(cellDir.glob('*.lef')):
             if loadGds:
