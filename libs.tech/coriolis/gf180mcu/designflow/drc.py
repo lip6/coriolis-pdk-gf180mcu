@@ -4,7 +4,7 @@ import subprocess
 from   pathlib                     import Path
 from   doit.exceptions             import TaskFailed
 from   coriolis.designflow.task    import FlowTask, ShellEnv
-from   coriolis.designflow.klayout import Klayout
+from   coriolis.designflow.klayout import Klayout, ShowDRC
 
 
 class BadSealRingScript ( Exception ): pass
@@ -25,6 +25,7 @@ class DRC ( FlowTask ):
     ANTENNA      = 0x0100
     ANTENNA_only = 0x0200
     NO_OFFGRID   = 0x0400
+    SHOW_ERRORS  = 0x0800
 
     PDK_ROOT = Path(__file__).parents[2]
     PDK      = Path( 'gf180mcu/libraries/gf180mcu_fd_pr/latest/rules/klayout/drc' )
@@ -75,6 +76,9 @@ class DRC ( FlowTask ):
             return TaskFailed( e )
         state = subprocess.run( [ 'grep', '--count', 'polygon', self.file_target(0).as_posix() ]  )
         if not state.returncode:
+            if self.flags & DRC.SHOW_ERRORS:
+                showdrc = ShowDRC( self.basename+'_show', self.file_depend(0), self.file_target(0) )
+                subprocess.run( showdrc.command )
             return False
         return self.checkTargets( 'DRC.doTask' )
 
