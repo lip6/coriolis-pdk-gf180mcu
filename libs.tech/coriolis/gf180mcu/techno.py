@@ -70,7 +70,7 @@ def _setup_techno( useHV ):
     tech = Technology.create( db, 'GF180MCU' )
 
     DbU.setPrecision( 2 )
-    DbU.setPhysicalsPerGrid( 0.0005, DbU.UnitPowerMicro )
+    DbU.setPhysicalsPerGrid( 0.005, DbU.UnitPowerMicro )
     with CfgCache(priority=Cfg.Parameter.Priority.ConfigurationFile) as cfg:
         cfg.gdsDriver.metricDbu = 1e-09
         cfg.gdsDriver.dbuPerUu  = 0.001
@@ -86,17 +86,17 @@ def _setup_techno( useHV ):
     COMP     = createBL( tech, 'COMP'    , BasicLayer.Material.active   , size=u(0.3 ), spacing=u(0.36), gds2Layer=22  )
     Poly2    = createBL( tech, 'Poly2'   , BasicLayer.Material.poly     , size=u(0.2 ), spacing=u(0.24), gds2Layer=30  )
     Cont     = createBL( tech, 'Contact' , BasicLayer.Material.cut      , size=u(0.22), spacing=u(0.25), gds2Layer=33  )
-    Metal1   = createBL( tech, 'Metal1'  , BasicLayer.Material.metal    , size=u(0.23), spacing=u(0.23), gds2Layer=34  )
+    Metal1   = createBL( tech, 'Metal1'  , BasicLayer.Material.metal    , size=u(0.23), spacing=u(0.23), gds2Layer=34, area=0.1444  )
     Via1     = createBL( tech, 'Via1'    , BasicLayer.Material.cut      , size=u(0.26), spacing=u(0.26), gds2Layer=35  )
-    Metal2   = createBL( tech, 'Metal2'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=36  )
+    Metal2   = createBL( tech, 'Metal2'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=36, area=0.1444 )
     Via2     = createBL( tech, 'Via2'    , BasicLayer.Material.cut      , size=u(0.26), spacing=u(0.26), gds2Layer=38  )
-    Metal3   = createBL( tech, 'Metal3'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=42  )
+    Metal3   = createBL( tech, 'Metal3'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=42, area=0.1444 )
     Via3     = createBL( tech, 'Via3'    , BasicLayer.Material.cut      , size=u(0.26), spacing=u(0.26), gds2Layer=40  )
-    Metal4   = createBL( tech, 'Metal4'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=46  )
+    Metal4   = createBL( tech, 'Metal4'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=46, area=0.1444 )
     Via4     = createBL( tech, 'Via4'    , BasicLayer.Material.cut      , size=u(0.26), spacing=u(0.26), gds2Layer=41  )
-    Metal5   = createBL( tech, 'Metal5'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=81  )
+    Metal5   = createBL( tech, 'Metal5'  , BasicLayer.Material.metal    , size=u(0.28), spacing=u(0.28), gds2Layer=81, area=0.1444 )
     Via5     = createBL( tech, 'Via5'    , BasicLayer.Material.cut      , size=u(0.26), spacing=u(0.26), gds2Layer=82  )
-    MetalTop = createBL( tech, 'MetalTop', BasicLayer.Material.metal    , size=u(0.36), spacing=u(0.38), gds2Layer=53  )
+    MetalTop = createBL( tech, 'MetalTop', BasicLayer.Material.metal    , size=u(0.36), spacing=u(0.38), gds2Layer=53, area=0.1444 )
 
     Poly2_Dummy    = createBL( tech, 'Poly2_Dummy'   , BasicLayer.Material.poly , gds2Layer=30, gds2DataType=4 )
     Metal1_Dummy   = createBL( tech, 'Metal1_Dummy'  , BasicLayer.Material.metal, gds2Layer=34, gds2DataType=4 )
