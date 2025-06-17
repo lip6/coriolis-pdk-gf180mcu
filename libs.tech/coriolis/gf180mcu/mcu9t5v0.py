@@ -17,7 +17,7 @@ from   coriolis.Anabatic        import StyleFlags
 __all__ = [ "setup" ]
 
 
-loadGds = False
+loadGds = True
 
 
 def _routing ( useHV ):
@@ -69,7 +69,7 @@ def _routing ( useHV ):
                                 , RoutingLayerGauge.Default         # layer usage
                                 , 2                                 # depth
                                 , 0.0                               # density (deprecated)
-                                , u(0.0)                            # track offset from AB
+                                , u(0.28)                            # track offset from AB
                                 , u(0.56)                           # track pitch
                                 , u(0.28)                           # wire width
                                 , u(0.28)                           # perpandicular wire width
@@ -81,7 +81,7 @@ def _routing ( useHV ):
                                 , RoutingLayerGauge.Default         # layer usage
                                 , 3                                 # depth
                                 , 0.0                               # density (deprecated)
-                                , u(0.0)                            # track offset from AB
+                                , u(0.28)                            # track offset from AB
                                 , u(0.56)                           # track pitch
                                 , u(0.28)                           # wire width
                                 , u(0.28)                           # perpandicular wire width
@@ -93,7 +93,7 @@ def _routing ( useHV ):
                                 , RoutingLayerGauge.Default         # layer usage
                                 , 4                                 # depth
                                 , 0.0                               # density (deprecated)
-                                , u(0.0)                            # track offset from AB
+                                , u(0.28)                            # track offset from AB
                                 , u(0.56)                           # track pitch
                                 , u(0.28)                           # wire width
                                 , u(0.28)                           # perpandicular wire width
@@ -129,7 +129,8 @@ def _routing ( useHV ):
         # Place & Route setup
         cfg.viewer.minimumSize = 500
         cfg.viewer.pixelThreshold = 2
-        cfg.lefImport.minTerminalWidth = 0.34
+        cfg.lefImport.xminTerminalSize = 0.26
+        cfg.lefImport.yminTerminalSize = 0.38
         cfg.crlcore.groundName  = 'VSS'
         cfg.crlcore.powerName   = 'VDD'
         cfg.etesian.bloat       = 'disabled'
@@ -138,7 +139,8 @@ def _routing ( useHV ):
         cfg.etesian.spaceMargin = 0.10
         cfg.etesian.densityVariation = 0.05
         cfg.etesian.routingDriven = False
-        cfg.etesian.latchUpDistance = u(30.0 - 1.0)
+        cfg.etesian.latchUpDistance = u(20.0)
+        cfg.etesian.tiesInEmptyArea = False
         cfg.etesian.diodeName = 'gf180mcu_fd_sc_mcu9t5v0__antenna'
        #cfg.etesian.antennaInsertThreshold = 0.50
        #cfg.etesian.antennaMaxWL = u(250.0)
@@ -235,7 +237,7 @@ def _loadStdLib ( pdkTop ):
     LefImport.load( (cellsTop / '..' / 'tech' / 'gf180mcu_6LM_1TM_9K_9t_tech.lef').as_posix() )
     LefImport.setMergeLibrary( cellLib )
     LefImport.setGdsForeignLibrary( cellLibGds )
-    LefImport.setPinFilter( u(0.26), u(0.26), LefImport.PinFilter_TALLEST )
+    LefImport.setPinFilter( u(0.26), u(0.38), LefImport.PinFilter_TALLEST )
     for cellDir in cellsTop.iterdir():
         for lefFile in sorted(cellDir.glob('*.lef')):
             if loadGds:
@@ -245,6 +247,43 @@ def _loadStdLib ( pdkTop ):
                     Gds.load( cellLibGds, gdsFile.as_posix(), Gds.Layer_0_IsBoundary|Gds.NoBlockages|Gds.LefForeign )
             LefImport.load( lefFile.as_posix() )
     af.wrapLibrary( cellLib, 0 )
+
+    metal1 = tech.getLayer( 'Metal1' )
+    with UpdateSession():
+        cell = cellLib.getCell( 'gf180mcu_fd_sc_mcu9t5v0__nor3_1' )
+        if cell:
+            print( '     - Patching pin A3 of "{}".'.format( cell.getName() ))
+            A3 = cell.getNet( 'A3' )
+            for component in A3.getComponents():
+                if component.getLayer() != metal1: continue
+                if not isinstance(component,Vertical): continue
+                if not NetExternalComponents.isExternal(component): continue
+                component.setDySource( component.getDySource() - u(0.005) )
+                component.setDyTarget( component.getDyTarget() + u(0.005) )
+                break
+        cell = cellLib.getCell( 'gf180mcu_fd_sc_mcu9t5v0__oai221_1' )
+        if cell:
+            print( '     - Patching pin A2 of "{}".'.format( cell.getName() ))
+            A2 = cell.getNet( 'A2' )
+            for component in A2.getComponents():
+                if component.getLayer() != metal1: continue
+                if not isinstance(component,Vertical): continue
+                if not NetExternalComponents.isExternal(component): continue
+                component.setDySource( component.getDySource() - u(0.005) )
+                component.setDyTarget( component.getDyTarget() + u(0.005) )
+                break
+        cell = cellLib.getCell( 'gf180mcu_fd_sc_mcu9t5v0__nand4_1' )
+        if cell:
+            print( '     - Patching pin A2 of "{}".'.format( cell.getName() ))
+            A2 = cell.getNet( 'A2' )
+            for component in A2.getComponents():
+                if component.getLayer() != metal1: continue
+                if not isinstance(component,Vertical): continue
+                if not NetExternalComponents.isExternal(component): continue
+                component.setDySource( component.getDySource() - u(0.005) )
+                component.setDyTarget( component.getDyTarget() + u(0.005) )
+                break
+
     return cellLib
 
 
