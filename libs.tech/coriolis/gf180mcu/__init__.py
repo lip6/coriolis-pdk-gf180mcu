@@ -9,20 +9,21 @@ __all__ = [ 'setup', 'pdkGFTop' ]
 
 pdkMasterTop = None
 pdkGFTop     = None
+LibertyLib   = None
 
 
-def setup ( checkToolkit=None, useHV=False ):
+def setup ( checkToolkit=None, useHV=False, enableLiberty=False ):
     global pdkMasterTop
     global pdkGFTop
 
-    from coriolis                     import Cfg 
+    from coriolis                     import Cfg
     from coriolis                     import Viewer
-    from coriolis                     import CRL 
+    from coriolis                     import CRL
     from coriolis.helpers             import overlay, l, u, n
     from coriolis.designflow.yosys    import Yosys
     from coriolis.designflow.klayout  import Klayout
     from coriolis.designflow.tasyagle import TasYagle
-    from .techno                      import setup as techno_setup 
+    from .techno                      import setup as techno_setup
     from .mcu9t5v0                    import setup as StdCellLib_setup
     from .iolib                       import setup as iolib_setup
 
@@ -33,7 +34,7 @@ def setup ( checkToolkit=None, useHV=False ):
     techno_setup( useHV )
     StdCellLib_setup( pdkGFTop, useHV )
     iolib_setup( pdkGFTop )
-    
+
     with overlay.CfgCache(priority=Cfg.Parameter.Priority.UserFile) as cfg:
         cfg.misc.catchCore           = False
         cfg.misc.minTraceLevel       = 12300
@@ -48,7 +49,7 @@ def setup ( checkToolkit=None, useHV=False ):
         cfg.anabatic.topRoutingLayer = 'Metal5'
         cfg.katana.eventsLimit       = 4000000
         af  = CRL.AllianceFramework.get()
-       #lg5 = af.getRoutingGauge( 'mcu9t' ).getLayerGauge( 5 ) 
+       #lg5 = af.getRoutingGauge( 'mcu9t' ).getLayerGauge( 5 )
        #lg5.setType( CRL.RoutingLayerGauge.PowerSupply )
         env = af.getEnvironment()
         env.setCLOCK( '^sys_clk$|^ck|^jtag_tck$' )
