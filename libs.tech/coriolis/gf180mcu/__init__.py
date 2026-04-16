@@ -63,3 +63,7 @@ def setup ( checkToolkit=None, useHV=False ):
     klayoutTech = pdkGFTop   / 'libraries' / 'gf180mcu_fd_pr' / 'latest' / 'tech'
     lypFile     = klayoutTech / 'klayout' / 'gf180mcu.lyp'
     Klayout.setLypFile( lypFile )
+
+    if (enableLiberty):
+        from coriolis.plugins import libertyParser
+        libertyParser.initLibertyLib(str(liberty))
