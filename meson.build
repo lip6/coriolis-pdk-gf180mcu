@@ -9,10 +9,10 @@ py       = import( 'python' ).find_installation( pure:false )
 py_deps  = dependency( 'python3', required: true )
 pdks_dir = py.get_install_dir() / 'pdks' / 'gf180mcu'
 
-install_subdir( 'gf180mcu-pdk/libraries'  , install_dir:pdks_dir )
-install_subdir( 'gf180mcu-pdk/macros'     , install_dir:pdks_dir )
-install_subdir( 'gf180mcu-pdk/third_party', install_dir:pdks_dir )
-install_data  ( 'mcu9t5v0.lib'            , install_dir:pdks_dir )
+install_subdir( 'gf180mcu-pdk/libraries'  , install_dir:pdks_dir, follow_symlinks:false )
+install_subdir( 'gf180mcu-pdk/macros'     , install_dir:pdks_dir, follow_symlinks:false )
+install_subdir( 'gf180mcu-pdk/third_party', install_dir:pdks_dir, follow_symlinks:false )
+install_data  ( 'mcu9t5v0.lib'            , install_dir:pdks_dir, follow_symlinks:false )
 
 cells_files = [ 'libs.tech/coriolis/gf180mcu/__init__.py'
               , 'libs.tech/coriolis/gf180mcu/techno.py'
