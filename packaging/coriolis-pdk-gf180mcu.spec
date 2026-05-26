@@ -21,7 +21,7 @@
 
 Name:           coriolis-pdk-gf180mcu
 Version:        2025.07.21
-Release:        <CI_CNT>.<B_CNT>.bfa7190
+Release:        1
 Summary:        Global Foundries 180 MCU open PDK
 License:        Apache-2.0
 %if 0%{?is_opensuse}
@@ -51,6 +51,13 @@ BuildRequires:  python%{python3_pkgversion}-wheel
 Requires:       python3%{python3_pkgversion}-docopt
 %else
 Requires:       python3-docopt
+%endif
+
+# All Mageia
+%if 0%{?mageia}
+BuildRequires:  ninja
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:	kernel-userspace-headers
 %endif
 
 %if 0%{?is_opensuse}
