@@ -171,7 +171,7 @@ def _routing ( useHV ):
         cfg.anabatic.globalLengthThreshold = 30*u(5.04)
         cfg.anabatic.hsmallThreshold = 3
         cfg.anabatic.vsmallThreshold = 3
-        cfg.anabatic.vlargeThreshold = 6
+        cfg.anabatic.vlargeThreshold = 7
         cfg.anabatic.saturateRatio = 0.90
         cfg.anabatic.saturateRp = 10
         cfg.anabatic.topRoutingLayer = 'Metal5'

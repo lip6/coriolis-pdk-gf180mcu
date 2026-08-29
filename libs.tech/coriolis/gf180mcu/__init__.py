@@ -70,8 +70,7 @@ def setup ( useHV=False ):
     Iverilog.setStdCellLib( stdCellLibVlog )
 
     ShellEnv.PDK_ROOT      = pdkGFTop.parent.as_posix()
-    ShellEnv.PDK           = 'gf180'
-
+   #ShellEnv.PDK           = 'gf180'
 
     klayoutTech = pdkGFTop   / 'libraries' / 'gf180mcu_fd_pr' / 'latest' / 'tech'
     lypFile     = klayoutTech / 'klayout' / 'gf180mcu.lyp'
