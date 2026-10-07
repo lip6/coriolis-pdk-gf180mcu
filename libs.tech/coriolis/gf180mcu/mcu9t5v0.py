@@ -138,8 +138,9 @@ def _routing ( useHV ):
         cfg.etesian.aspectRatio = [10, 1000]
         cfg.etesian.spaceMargin = 0.10
         cfg.etesian.densityVariation = 0.05
+        cfg.etesian.densificationMode = 'Old'
         cfg.etesian.routingDriven = False
-        cfg.etesian.latchUpDistance = u(20.0)
+        cfg.etesian.latchUpDistance = u(30.0)
         cfg.etesian.tiesInEmptyArea = False
         cfg.etesian.diodeName = 'gf180mcu_fd_sc_mcu9t5v0__antenna'
        #cfg.etesian.antennaInsertThreshold = 0.50
